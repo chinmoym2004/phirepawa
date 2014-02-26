@@ -215,3 +215,7 @@ z-index: 10;
 #showAboutus{
     display:none;
 }
+
+a , a:hover, a:focus{
+    color: #2a6496;
+}

@@ -76,9 +76,23 @@ class BlogController extends BaseController {
 	public function getDisplay($id)
 	{
 		
-		$blog=Blog::where('id','=',$id)->get();
+		$blog=DB::table('blog')
+		->join('users','users.id','=','blog.uid')
+		->select('*','blog.id as postid')
+		->where('blog.id','=',$id)
+		->get();
+
+		$getallcomment=DB::table('comment')
+		->join('users','users.id','=','comment.doneby')
+		->select('*','comment.updated_at as commenton')
+		->where('comment.context','=','blog')
+		->where('comment.contextid','=',$id)
+		->where('comment.verified','=',1)
+		->get();
 		$data=array(
-			'blog'=>$blog
+			'blog'=>$blog,
+			'getallcomment'=>$getallcomment,
+			'postid'=>$id
 			);
 		$this->layout->content = View::make('blog.display',$data);
 	}

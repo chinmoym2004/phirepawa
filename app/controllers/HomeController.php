@@ -22,10 +22,24 @@ class HomeController extends BaseController {
 	}
 
 	public function aboutus(){
-		$this->layout->content = View::make('aboutus');
+		$getAbout=DB::table('siteinfo')->get();
+		$data=array('getAbout'=>$getAbout);
+		$this->layout->content = View::make('aboutus',$data);
 	}
 	public function myprofile(){
 		$this->layout->content = View::make('myprofile');
+	}
+
+	public function comment(){
+		//print_r($_REQUEST);
+		$getComment=new Comments();
+		$getComment->combody=Input::get('postcomment');
+		$getComment->context=Input::get('context');
+		$getComment->doneby=Auth::user()->id;
+		$getComment->contextid=Input::get('forid');
+		$getComment->verified=0;
+		$getComment->save();
+		return "";
 	}
 
 }

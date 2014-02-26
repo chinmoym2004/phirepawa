@@ -10,11 +10,12 @@
 	<link href="{{URL::asset('assets_files/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{URL::asset('assets_files/css/orbit-1.2.3.css')}}" rel="stylesheet" type="text/css" />
 	
-
+<link href="{{URL::asset('assets_files/css/alertify.css')}}" rel="stylesheet" type="text/css" />
 	<!--Js -->
 	<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery-1.10.1.min.js')}}"></script>
 	<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery.orbit-1.2.3.js')}}"></script>
 	<script type="text/javascript" src="{{URL::asset('assets_files/js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('assets_files/js/alertify.js')}}"></script>
 	
 
 </head>

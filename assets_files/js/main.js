@@ -146,3 +146,24 @@ $(document).on("click","#clear",function(){
 	$("#about").show();
 	$("#showAboutus").css("display","none");
 });
+
+$(document).on("submit","#postComment",function(event){
+	event.preventDefault();
+	$.post($(this).attr('action'),{'forid':$(this).attr('data-postid'),'postcomment':$("#postcomment").val(),'context': $(this).attr('data-context')},function(data){
+		$("#postcomment").val("");
+		alertify.error("comment posted for varification");
+	});
+});
+
+$(document).on("click",'.commentverify',function(event){
+	event.preventDefault();
+	$.post(globalpath+"/admin/verifycomment/"+$(this).attr('data-id'),function(){
+		window.location.reload();
+	});
+});
+$(document).on("click",'.commentdelete',function(event){
+	event.preventDefault();
+	$.post(globalpath+"/admin/deletecomment/"+$(this).attr('data-id'),function(){
+		window.location.reload();
+	});
+});

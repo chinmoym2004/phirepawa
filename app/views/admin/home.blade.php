@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-6 col-md-3">
           <a href="{{url('admin/allnewlycomment')}}" class="thumbnail" style="height: 101px;">
-              New Coments<span class="badge pull-right">14</span>  
+              New Coments<span class="badge pull-right">{{count($noofcomments)}}</span>  
           </a>
         </div>
 </div>

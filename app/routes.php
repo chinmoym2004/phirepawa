@@ -25,7 +25,7 @@ Route::resource('forum','ForumController@index');
 Route::Controller('admin','AdminController');
 
 Route::resource('admin','AdminController@index');
-
+Route::resource('commment/postit','HomeController@comment');
 
 
 Route::resource('faq','FaqController@index');

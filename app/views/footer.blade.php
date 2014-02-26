@@ -71,4 +71,8 @@
       </div>         
   </div>
 </div>
+<script type="text/javascript">
+  var globalpath="{{url('/')}}";
+</script>
 <link  href="{{URL::asset('assets_files/css/main.css')}}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{URL::asset('assets_files/js/main.js')}}"></script>

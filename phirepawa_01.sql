@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2014 at 06:48 PM
+-- Generation Time: Feb 26, 2014 at 08:04 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -47,6 +47,31 @@ CREATE TABLE IF NOT EXISTS `phirepawa_blog` (
 INSERT INTO `phirepawa_blog` (`id`, `title`, `body`, `tags`, `uid`, `verified`, `created_at`, `updated_at`) VALUES
 (2, 'title of my blog', 'kggbfjb hfbg jld;jkf;jdbg;djkf bjgbfdjkb', 'sample,test', 1, 1, '2014-02-02 09:07:34', '2014-02-02 14:39:27'),
 (3, 'title of my blog', 'kggbfjb hfbg jld;jkf;jdbg;djkf bjgbfdjkb', 'sample,test', 1, 1, '2014-02-02 09:08:05', '2014-02-23 12:14:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phirepawa_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `phirepawa_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `combody` text NOT NULL,
+  `doneby` int(11) NOT NULL,
+  `context` varchar(20) NOT NULL,
+  `contextid` int(11) NOT NULL,
+  `verified` int(11) NOT NULL,
+  `created_at` varchar(20) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `phirepawa_comment`
+--
+
+INSERT INTO `phirepawa_comment` (`id`, `combody`, `doneby`, `context`, `contextid`, `verified`, `created_at`, `updated_at`) VALUES
+(1, 'ookoo okok okokokok okokokoko okokokokok kokok', 3, 'blog', 2, 1, '2014-02-26 17:45:21', '2014-02-26 13:23:34');
 
 -- --------------------------------------------------------
 

@@ -1,5 +1,51 @@
 @foreach($blog as $content)
-	{{$content->title}}
-	{{$content->body}}
-	{{$content->tags}}
+<div class="caption wrapper-lg">
+	<h2 class="post-title"><a href="#">{{$content->title}}</a></h2>
+	<div class="post-sum">
+	  <p>{{$content->body}}</p>
+	</div>
+	<div class="line line-lg"></div>
+	<div class="text-muted">
+	  <i class="fa fa-user icon-muted"></i> by <a href="#" class="m-r-sm">{{$content->firstname.' '.$content->lastname}}</a>
+	  <i class="fa fa-clock-o icon-muted"></i> {{$content->updated_at}}
+	</div>
+</div>
 @endforeach
+
+<div class="comment-list block">
+	@if(count($getallcomment)==0)
+		<p>Still no comment is there</p>
+	@endif
+	@foreach ($getallcomment as $key) 
+		<article id="comment-id-1" class="comment-item">
+		  <a class="pull-left thumb-sm">
+		    <img src="images/avatar.jpg" class="img-rounded">
+		  </a>
+		  <section class="comment-body m-b">
+		    <header>
+		      <a href="#"><strong>{{$key->firstname.' '.$key->lastname}}</strong></a>
+		      <span class="text-muted text-xs block m-t-xs">
+		        {{$key->commenton}}
+		      </span>
+		    </header>
+		    <div class="m-t-sm">{{$key->combody}}</div>
+		  </section>
+		</article>
+	@endforeach
+</div>
+
+<h4 class="m-t-lg m-b">Leave a comment</h4>
+
+@if(Auth::check())
+<form action="{{url('commment/postit')}}" method="post" data-postid="{{$postid}}" id="postComment" data-context="blog">
+    <div class="form-group">
+      <label>Comment</label>
+      <textarea class="form-control" rows="5" placeholder="Type your comment"  id="postcomment"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">Post comment</button>
+    </div>
+</form>
+@else
+	<button type="submit" class="btn btn-success">Login to post a comment</button>
+@endif

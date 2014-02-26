@@ -15,14 +15,14 @@
                         <div class="form-group">
                           <label class="col-lg-2 control-label">Email</label>
                           <div class="col-lg-10">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" class="form-control" placeholder="Email" required name="email">
                             <span class="help-block m-b-none">Example block-level help text here.</span>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-lg-2 control-label">Password</label>
                           <div class="col-lg-10">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                           </div>
                         </div>
                         <div class="form-group">
@@ -36,9 +36,9 @@
                         </div>
                         <div class="form-group">
                           <div class="col-lg-offset-2 col-lg-10">
-                            <button type="submit" class="btn btn-sm btn-default">Sign in</button>
+                            <button type="submit" class="btn btn-sm btn-default">Sign in</button>&nbsp;&nbsp;&nbsp;{{ HTML::link('password/reset', 'Forgot Password?') }}
                           </div>
-                          <div>{{ Form::submit('Login', array('class'=>'btn btn-primary'))}}&nbsp;&nbsp;&nbsp;{{ HTML::link('password/reset', 'Forgot Password?') }}</div>
+                          <div></div>
                         </div>
                       </form>
       </div>

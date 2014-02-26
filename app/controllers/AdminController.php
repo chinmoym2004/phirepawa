@@ -14,11 +14,13 @@ class AdminController extends BaseController {
 
 			$nooffaq=DB::table('faq')->join('users', 'users.id', '=', 'faq.uid')->select('*','faq.id as faqid','faq.created_at as postedon')->where('faq.verified','=',0)->get();
 
-			
+			$noofcomments=Comments::where('verified','=',0)->get();
+
 
 			$data=array(
 				'noofpost' => $noofpost,
 				'nooffaq'=>$nooffaq ,
+				'noofcomments'=>$noofcomments
 			);
 			$this->layout->content = View::make('admin.home',$data);
 		}
@@ -35,11 +37,12 @@ class AdminController extends BaseController {
 
 			$nooffaq=DB::table('faq')->join('users', 'users.id', '=', 'faq.uid')->select('*','faq.id as faqid','faq.created_at as postedon')->where('faq.verified','=',0)->get();
 
-			
+			$noofcomments=Comments::where('verified','=',0)->get();
 
 			$data=array(
 				'noofpost' => $noofpost,
 				'nooffaq'=>$nooffaq ,
+				'noofcomments'=>$noofcomments
 			);
 			$this->layout->content = View::make('admin.home',$data);
 		}
@@ -243,6 +246,29 @@ class AdminController extends BaseController {
 		
 	}
 
+
+	public function getAllnewlycomment()
+	{
+		$noofcomments=DB::table('comment')
+		->join('users', 'users.id', '=', 'comment.doneby')
+		->select('*','comment.id as commentid','comment.updated_at as postedon')
+		->where('comment.verified','=',0)->get();
+		$data=array(
+			'noofcomments'=>$noofcomments
+		);
+		$this->layout->content = View::make('admin.newcomments',$data);	
+	}
+	public function postVerifycomment($id)
+	{
+		$getComment=Comments::find($id);
+		$getComment->verified=1;
+		$getComment->save();
+	}
+	public function postDeletecomment($id)
+	{
+		$getComment=Comments::find($id);
+		$getComment->delete();
+	}
 
 	
 }
