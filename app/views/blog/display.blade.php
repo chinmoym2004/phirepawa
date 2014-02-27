@@ -1,6 +1,14 @@
 @foreach($blog as $content)
 <div class="caption wrapper-lg">
-	<h2 class="post-title"><a href="#">{{$content->title}}</a></h2>
+	<h2 class="post-title">
+		<a href="#">{{$content->title}}</a>
+		@if($content->verified==1)
+		<!-- glyphicon glyphicon-share -->
+			<span class="" title="Verified" style="font-size:14px"><i class="glyphicon glyphicon-ok-circle"></i></span>
+		@else
+			<span class="" title="Still Not Verified" style="font-size:14px"><i class="glyphicon glyphicon-info-sign"></i></span>
+        @endif
+	</h2>
 	<div class="post-sum">
 	  <p>{{$content->body}}</p>
 	</div>
@@ -47,5 +55,5 @@
     </div>
 </form>
 @else
-	<button type="submit" class="btn btn-success">Login to post a comment</button>
+	<a class="btn btn-success" href="{{url('users/login')}}">Login to post a comment</a>
 @endif

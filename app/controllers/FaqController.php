@@ -24,6 +24,20 @@ class FaqController extends BaseController {
 			);
 		$this->layout->content = View::make('faq.create',$data);
 	}
+	public function postCreate()
+	{
+		
+		$uid=Auth::user()->id;
+		$faq=new Faq();
+		$faq->title= Input::get('title');
+		$faq->body= Input::get('body');
+		$faq->tags= Input::get('tags');
+		$faq->uid= $uid;
+		$faq->verified= 0;
+		$faq->save();
+		return Redirect::to('faq/mycontent');
+
+	}
 
 	public function delete(){
 		//$this->layout->content = View::make('');
@@ -31,7 +45,12 @@ class FaqController extends BaseController {
 
 	//for all uer
 	public function index(){
-		$faq=faq::where('verified','=',1)->get();
+		//$faq=faq::where('verified','=',1)->get();
+		$faq=DB::table('faq')
+		->join('users','users.id','=','faq.uid')
+		->select('*','faq.id as postid')
+		->where('faq.verified','=',1)
+		->get();
 		$data=array(
 			'faq' => $faq 
 			);
@@ -40,55 +59,86 @@ class FaqController extends BaseController {
 
 	public function postUpdate($id){
 		$uid=Auth::user()->id;
-		$faq=Blog::find($id);
-		$faq->title= Input::get('faq_title');
-		$faq->body= Input::get('faq_desc');
+		$faq=Faq::find($id);
+		$faq->title= Input::get('title');
+		$faq->body= Input::get('body');
+		$faq->tags= Input::get('tags');
 		$faq->uid= $uid;
 		$faq->verified= 0;
 		$faq->save();
 		return Redirect::to('faq/mycontent');
 	}
-
-	public function postCreate(){
-		$uid=Auth::user()->id;
-		$faq=new Faq();
-		$faq->title= Input::get('faq_title');
-		$faq->body= Input::get('faq_desc');
-		$faq->uid= $uid;
-		$faq->verified= 0;
-		$faq->save();
-		return Redirect::to('faq/mycontent');
-	}
-
 	public function getEdit($id)
 	{
 		
-		$blog=Faq::where('id','=',$id)->get();
+		$faq=faq::where('id','=',$id)->get();
 		$data=array(
 			'faq'=>$faq,
 			'operation'=>'update'
 			);
 		$this->layout->content = View::make('faq.create',$data);
 	}
-
 	public function getDisplay($id)
 	{
-		
-		$faq=Faq::where('id','=',$id)->get();
-		$data=array(
-			'faq'=>$faq
-			);
-		$this->layout->content = View::make('faq.display',$data);
+		$chkFaq=Faq::where('uid','=',Auth::user()->id)->get();
+		if($chkFaq)
+		{
+			$faq=DB::table('faq')
+			->join('users','users.id','=','faq.uid')
+			->select('*','faq.id as postid')
+			->where('faq.id','=',$id)
+			->get();
+		}
+		else
+		{
+			$faq=DB::table('faq')
+			->join('users','users.id','=','faq.uid')
+			->select('*','faq.id as postid')
+			->where('faq.id','=',$id)
+			->where('faq.verified','=',1)
+			->get();
+		}
+
+		if(count($faq))
+		{
+			$getallcomment=DB::table('comment')
+			->join('users','users.id','=','comment.doneby')
+			->select('*','comment.updated_at as commenton')
+			->where('comment.context','=','faq')
+			->where('comment.contextid','=',$id)
+			->where('comment.verified','=',1)
+			->get();
+			$data=array(
+				'faq'=>$faq,
+				'getallcomment'=>$getallcomment,
+				'postid'=>$id
+				);
+			$this->layout->content = View::make('faq.display',$data);
+		}
+		else
+		{
+			return Redirect::to('error');
+		}
 	}
  ///for single user 
 	public function getMycontent(){
-		$uid=Auth::user()->id;
-		$faq=faq::where('uid','=',$uid)->get();
-		$data=array(
-			'faq' => $faq 
-			);
-		$this->layout->content = View::make('faq.view',$data);
-
+		if(Auth::check())
+		{
+			$uid=Auth::user()->id;
+			$faq=DB::table('faq')
+			->join('users','users.id','=','faq.uid')
+			->select('*','faq.id as postid')
+			->where('faq.uid','=',$uid)
+			->get();
+			$data=array(
+				'faq' => $faq 
+				);
+			$this->layout->content = View::make('faq.view',$data);
+		}
+		else
+		{
+		return Redirect::to('users/login');
+		}
 	}
 
 }

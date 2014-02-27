@@ -9,14 +9,9 @@
 	<!--CSS -->
 	<link href="{{URL::asset('assets_files/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{URL::asset('assets_files/css/orbit-1.2.3.css')}}" rel="stylesheet" type="text/css" />
-	
-<link href="{{URL::asset('assets_files/css/alertify.css')}}" rel="stylesheet" type="text/css" />
-	<!--Js -->
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery-1.10.1.min.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery.orbit-1.2.3.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/bootstrap.min.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/alertify.js')}}"></script>
-	
+	<link href="{{URL::asset('assets_files/css/alertify.css')}}" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link href="{{URL::asset('assets_files/css/bootstrap-image-gallery.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -92,12 +87,12 @@
 				                <li><a href="#">One more separated link</a></li>
 				              </ul>
 				            </li>
-	  					<li><a href="#contact">Gallery</a></li>
+	  					<li><a href="{{url('gallery')}}">Gallery</a></li>
 						<li><a href="{{url('blog')}}">Blog</a></li>
-						<li><a href="#contact">FAQ</a></li>
-						<li><a href="#contact">News</a></li>
-						<li><a href="#contact">Forum</a></li>
-						<li><a href="#contact">Contact US</a></li> 
+						<li><a href="{{url('faq')}}">FAQ</a></li>
+						<li><a href="{{url('news')}}">News</a></li>
+						<li><a href="{{url('forum')}}">Forum</a></li>
+						<li><a href="{{url('contactus')}}">Contact US</a></li> 
 			          </ul>
 			        </div><!--/.nav-collapse -->
 	</div>

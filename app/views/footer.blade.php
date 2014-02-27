@@ -71,6 +71,13 @@
       </div>         
   </div>
 </div>
+<!--Js -->
+<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery-1.10.1.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery.orbit-1.2.3.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('assets_files/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('assets_files/js/alertify.js')}}"></script>
+<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="{{URL::asset('assets_files/js/bootstrap-image-gallery.js')}}"></script>
 <script type="text/javascript">
   var globalpath="{{url('/')}}";
 </script>

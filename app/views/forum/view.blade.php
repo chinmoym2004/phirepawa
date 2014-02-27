@@ -7,14 +7,22 @@
 					@foreach ($forum as $content)
 						<div class="post-item" id="article-3">
 							<div class="caption wrapper-lg">
-			                    <h2 class="post-title"><a href="http://localhost/openforum0.0/forum/display/6">title of my forum</a></h2>
+			                    <h2 class="post-title">
+			                    	<a href="{{url('forum/display/'.$content->postid)}}">{{$content->topics}}</a>
+			                    	@if($content->verified==1)
+									<!-- glyphicon glyphicon-share -->
+										<span class="" title="Verified" style="font-size:14px"><i class="glyphicon glyphicon-ok-circle"></i></span>
+									@else
+										<span class="" title="Still Not Verified" style="font-size:14px"><i class="glyphicon glyphicon-info-sign"></i></span>
+				                    @endif
+			                    </h2>
 			                    <div class="post-sum">
-			                		 <p>This &nbsp;is a body text to test my forum content</p>
+			                		 <p>{{$content->desc}}</p>
 			                    </div>
 			                    <div class="line line-lg"></div>
 			                    <div class="text-muted">
-			                      <i class="fa fa-user icon-muted"></i> by <a href="#" class="m-r-sm">Chinmoy Maity</a>
-			                      <i class="fa fa-clock-o icon-muted"></i> 2014-01-26 15:10:02                      <!-- <a href="#" class="m-l-sm"><i class="fa fa-comment-o icon-muted"></i> 2 comments</a> -->
+			                      <i class="fa fa-user icon-muted"></i> by <a href="#" class="m-r-sm">{{$content->firstname.' '.$content->lastname}}</a>
+			                      <i class="fa fa-clock-o icon-muted"></i> {{$content->updated_at}}                     <!-- <a href="#" class="m-l-sm"><i class="fa fa-comment-o icon-muted"></i> 2 comments</a> -->
 			                    </div>
 			                  </div>
 			            </div>	

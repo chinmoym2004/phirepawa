@@ -42,4 +42,16 @@ class HomeController extends BaseController {
 		return "";
 	}
 
+	public function error(){
+		$this->layout->content = View::make('error');
+	}
+
+	public function contactus(){
+		$this->layout->content = View::make('contactus');
+	}
+
+	public function gallery(){
+		$this->layout->content = View::make('gallery');
+	}
+
 }

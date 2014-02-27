@@ -219,3 +219,13 @@ z-index: 10;
 a , a:hover, a:focus{
     color: #2a6496;
 }
+#links{
+    padding-top: 10px;
+padding-bottom: 15px;
+}
+#links a img {
+    height: 150px;
+width: 200px;
+border: 8px solid#fff;
+border-radius: 6px;
+}

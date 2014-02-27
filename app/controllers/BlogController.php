@@ -16,7 +16,7 @@ class BlogController extends BaseController {
 	*/
 	protected $layout="mainLayout";
 
-	public function getCreate()
+	public function getNew()
 	{
 		
 		$data=array(
@@ -45,7 +45,12 @@ class BlogController extends BaseController {
 
 	//for all uer
 	public function index(){
-		$blog=Blog::where('verified','=',1)->get();
+		//$blog=Blog::where('verified','=',1)->get();
+		$blog=DB::table('blog')
+		->join('users','users.id','=','blog.uid')
+		->select('*','blog.id as postid')
+		->where('blog.verified','=',1)
+		->get();
 		$data=array(
 			'blog' => $blog 
 			);
@@ -75,36 +80,65 @@ class BlogController extends BaseController {
 	}
 	public function getDisplay($id)
 	{
-		
-		$blog=DB::table('blog')
-		->join('users','users.id','=','blog.uid')
-		->select('*','blog.id as postid')
-		->where('blog.id','=',$id)
-		->get();
-
-		$getallcomment=DB::table('comment')
-		->join('users','users.id','=','comment.doneby')
-		->select('*','comment.updated_at as commenton')
-		->where('comment.context','=','blog')
-		->where('comment.contextid','=',$id)
-		->where('comment.verified','=',1)
-		->get();
-		$data=array(
-			'blog'=>$blog,
-			'getallcomment'=>$getallcomment,
-			'postid'=>$id
-			);
-		$this->layout->content = View::make('blog.display',$data);
+		$chkBlog=Blog::where('uid','=',Auth::user()->id)->get();
+		if($chkBlog)
+		{
+			$blog=DB::table('blog')
+			->join('users','users.id','=','blog.uid')
+			->select('*','blog.id as postid')
+			->where('blog.id','=',$id)
+			->get();
+		}
+		else
+		{
+			$blog=DB::table('blog')
+			->join('users','users.id','=','blog.uid')
+			->select('*','blog.id as postid')
+			->where('blog.id','=',$id)
+			->where('blog.verified','=',1)
+			->get();
+		}
+		if(count($blog))
+		{
+			$getallcomment=DB::table('comment')
+			->join('users','users.id','=','comment.doneby')
+			->select('*','comment.updated_at as commenton')
+			->where('comment.context','=','blog')
+			->where('comment.contextid','=',$id)
+			->where('comment.verified','=',1)
+			->get();
+			$data=array(
+				'blog'=>$blog,
+				'getallcomment'=>$getallcomment,
+				'postid'=>$id
+				);
+			$this->layout->content = View::make('blog.display',$data);
+		}
+		else
+		{
+			return Redirect::to('error');
+		}
 	}
  ///for single user 
 	public function getMycontent(){
-		$uid=Auth::user()->id;
-		$blog=Blog::where('uid','=',$uid)->get();
-		$data=array(
-			'blog' => $blog 
-			);
-		$this->layout->content = View::make('blog.view',$data);
 
+		if(Auth::check())
+		{
+			$uid=Auth::user()->id;
+			$blog=DB::table('blog')
+			->join('users','users.id','=','blog.uid')
+			->select('*','blog.id as postid')
+			->where('blog.uid','=',$uid)
+			->get();
+			$data=array(
+				'blog' => $blog 
+				);
+			$this->layout->content = View::make('blog.view',$data);
+		}
+		else
+		{
+		return Redirect::to('users/login');
+		}
 	}
 
 }
