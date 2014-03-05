@@ -8,10 +8,10 @@
 
 	<!--CSS -->
 	<link href="{{URL::asset('assets_files/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-	<link href="{{URL::asset('assets_files/css/orbit-1.2.3.css')}}" rel="stylesheet" type="text/css" />
-	<link href="{{URL::asset('assets_files/css/alertify.css')}}" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-	<link href="{{URL::asset('assets_files/css/bootstrap-image-gallery.css')}}" rel="stylesheet" type="text/css" />
+<!-- 	<link href="{{URL::asset('assets_files/css/orbit-1.2.3.css')}}" rel="stylesheet" type="text/css" />
+ -->	<link href="{{URL::asset('assets_files/css/alertify.css')}}" rel="stylesheet" type="text/css" />
+	<!-- <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link href="{{URL::asset('assets_files/css/bootstrap-image-gallery.css')}}" rel="stylesheet" type="text/css" /> -->
 
 </head>
 <body>
@@ -97,13 +97,34 @@
 			        </div><!--/.nav-collapse -->
 	</div>
 	<div class="container">
-		<div style="width: 100%; height: 242px;">
+		<!-- <div style="width: 100%; height: 242px;">
 			<div id="slide">
-				<img src="{{URL::asset('assets_files/images/slider1.jpg')}}" alt="Overflow: Hidden No More" />
-				<img src="{{URL::asset('assets_files/images/slider2.jpg')}}" alt="Overflow: Hidden No More" />
-				<img src="{{URL::asset('assets_files/images/slider3.jpg')}}" alt="Overflow: Hidden No More" />
-				<img src="{{URL::asset('assets_files/images/slider4.jpg')}}" alt="Overflow: Hidden No More" />
-				<img src="{{URL::asset('assets_files/images/slider5.jpg')}}" alt="Overflow: Hidden No More" />
 			</div>
+		</div> -->
+		<div id='coin-slider'>
+			<a href="img01_url" target="_blank">
+				<img src="{{URL::asset('assets_files/images/slider1.jpg')}}" alt="Overflow: Hidden No More" />
+				<!-- <span>
+					Description for img01
+				</span> -->
+			</a>
+			<a href="img01_url" target="_blank">
+				<img src="{{URL::asset('assets_files/images/slider3.jpg')}}" alt="Overflow: Hidden No More" />
+				<!-- <span>
+					Description for img01
+				</span> -->
+			</a>
+			<a href="img01_url" target="_blank">
+				<img src="{{URL::asset('assets_files/images/slider4.jpg')}}" alt="Overflow: Hidden No More" />
+				<!-- <span>
+					Description for img01
+				</span> -->
+			</a>
+			<a href="img01_url" target="_blank">
+				<img src="{{URL::asset('assets_files/images/slider5.jpg')}}" alt="Overflow: Hidden No More" />
+				<!-- <span>
+					Description for img01
+				</span> -->
+			</a>
 		</div>
 	</div>

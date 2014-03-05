@@ -19,13 +19,13 @@
 	      <input type="text" class="form-control"  placeholder="Last Name" name="lastname">
 	    </div>
 	  </div>
-	  <div class="form-group">
+	 <!--  <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">Registration no</label>
 	    <div class="col-sm-6">
 	      <input type="text" class="form-control"  placeholder="Registartion no" name="regno" autocomplete="off">
 	    </div>
-	  </div>
-	  <div class="form-group">
+	  </div> -->
+	  <!-- <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">Select Year</label>
 	    <div class="col-sm-3">
 		      <select class="form-control" name="useryear">
@@ -43,7 +43,7 @@
 		        <option value="2003">2003</option>
 		      </select>
 	    </div>
-	  </div>
+	  </div> -->
 	  <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">Password</label>
 	    <div class="col-sm-6">

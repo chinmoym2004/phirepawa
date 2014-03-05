@@ -1,8 +1,12 @@
 
 $(document).ready(function(){
-	//$('#blogPostFrom').hide();
-/*	$("#signupEmail").focusout(function(){
-*/	
+	
+	$('#coin-slider').coinslider({ 
+			width: 1170, 
+			navigation: true, 
+			delay: 5000 
+		});
+
 });
 
 /*$(document).on("click",".blog-edit",function(event){

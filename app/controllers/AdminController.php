@@ -198,6 +198,57 @@ class AdminController extends BaseController {
 		//$getPhotos=Gallery::orderpaginate(2);
 		$this->layout->content=View::make('admin.uploadimage');
 	}
+	public function postUploadimage()
+	{
+		//$getPhotos=Gallery::orderpaginate(2);
+		//$file = Input::file('files'); 
+		//$getOriginalName=Input::file('files')->getClientOriginalName();
+        if(Auth::check())
+        {
+	        if(Auth::user()->usertype=='admin' || Auth::user()->usertype=='super')
+	        {
+	        	if (Input::hasFile('image'))
+				{
+					$destinationPath = public_path().'/galleryimage/';	
+		        
+			        if (!file_exists($destinationPath)) {
+					    mkdir($destinationPath, 0777, true);
+					}
+
+			        $ext = Input::file('image')->getClientOriginalExtension();//pathinfo($file[0], PATHINFO_EXTENSION);
+					$filename = uniqid("galleryimage_").'.'.$ext;
+			        $uploadSuccess   = Input::file('image')->move($destinationPath, $filename);
+			        
+				    $FileDB = new Gallery();
+				    $FileDB->fname = $filename;
+				    $FileDB->event_date =Input::get('eventdate');
+				    $FileDB->filetitle = Input::get('title');
+				    $FileDB->description = Input::get('desc');
+				    //$FileDB->file_size = $getSize;
+				    $FileDB->uploadedBy = Auth::user()->id;
+				    $FileDB->save();
+
+				    //return $FileDB->id;
+
+					$this->layout->content=View::make('admin.uploadimage')->with('message','Successfully Uploaded !');
+				}
+				else
+				{
+					$this->layout->content=View::make('admin.uploadimage')->with('message','No file found !!');
+				}
+	        }
+	        else
+	        {
+	        	return Redirect::to('users/login')->with('message','Un-Auhtorized Access');
+
+	        }
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
+        
+	}
 
 	public function getDelete($id)
 	{

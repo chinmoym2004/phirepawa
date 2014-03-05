@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 05, 2014 at 02:53 AM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Mar 05, 2014 at 08:18 AM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `phirepawa_01`
 --
-CREATE DATABASE IF NOT EXISTS `phirepawa_01` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `phirepawa_01`;
 
 -- --------------------------------------------------------
 
@@ -130,14 +128,21 @@ INSERT INTO `phirepawa_forum` (`id`, `topics`, `desc`, `created_by`, `verified`,
 CREATE TABLE IF NOT EXISTS `phirepawa_gallery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` text NOT NULL,
-  `year` int(11) NOT NULL,
+  `event_date` varchar(20) NOT NULL,
   `filetitle` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `uploadedBy` int(11) NOT NULL,
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `phirepawa_gallery`
+--
+
+INSERT INTO `phirepawa_gallery` (`id`, `fname`, `event_date`, `filetitle`, `description`, `uploadedBy`, `created_at`, `updated_at`) VALUES
+(2, 'galleryimage_5316bf7f4513c.jpg', '05-03-2014', 'wewee  wewee ', 'qddss fdfd', 2, '2014-03-05 06:09:03', '2014-03-05 00:39:03');
 
 -- --------------------------------------------------------
 

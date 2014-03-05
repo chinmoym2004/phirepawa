@@ -1,9 +1,11 @@
 <div>
-<form class="form-horizontal" role="form" methd="post" action="{{url('admin/uploadimage')}}" >
-  <div class="form-group">
+{{Form::open(array('url' => 'admin/uploadimage', 'method' => 'post','enctype'=>'multipart/form-data','class'=>'form-horizontal','role'=>'form'))}}
+<!-- <form class="form-horizontal" role="form" methd="post" action="{{url('admin/uploadimage')}}" >
+ -->  <div class="form-group">
     <label for="file" class="col-sm-2 control-label">Select a file</label>
     <div class="col-sm-5">
-      <input type="file" id="file" name="file" placeholder="Select an image title">
+      <!-- <input type="file" id="file" name="file" placeholder="Select an image title"> -->
+      {{Form::file('image')}}
     </div>
   </div>
   <div class="form-group">
