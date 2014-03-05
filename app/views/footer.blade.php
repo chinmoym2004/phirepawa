@@ -76,8 +76,12 @@
 <script type="text/javascript" src="{{URL::asset('assets_files/js/jquery.orbit-1.2.3.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('assets_files/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('assets_files/js/alertify.js')}}"></script>
-<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="{{URL::asset('assets_files/js/jquery.blueimp-gallery.min.js')}}"></script>
 <script src="{{URL::asset('assets_files/js/bootstrap-image-gallery.js')}}"></script>
+<link  href="{{URL::asset('assets_files/js/datepicker/css/datepicker.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{URL::asset('assets_files/js/datepicker/js/bootstrap-datepicker.js')}}"></script>
+
+
 <script type="text/javascript">
   var globalpath="{{url('/')}}";
 </script>

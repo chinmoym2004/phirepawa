@@ -137,10 +137,16 @@ $(document).on("click",".ImPosting",function(){
 
 
 $(document).on("click","#editme",function(){
-	$("#saveAboutus").text($("#about").html());
+	$("#saveHome").text($("#about").html());
 	$("#about").hide();
 	$("#showAboutus").css("display","inline");
 });
+$(document).on("click","#edithome",function(){
+	$("#saveHome").text($("#home").html());
+	$("#home").hide();
+	$("#showHome").css("display","inline");
+});
+
 $(document).on("click","#clear",function(){
 	$("#saveAboutus").text("");
 	$("#about").show();
@@ -166,4 +172,8 @@ $(document).on("click",'.commentdelete',function(event){
 	$.post(globalpath+"/admin/deletecomment/"+$(this).attr('data-id'),function(){
 		window.location.reload();
 	});
+});
+
+$(document).on("focus","#eventdate",function(){
+	$(this).datepicker();
 });

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2014 at 08:04 PM
+-- Generation Time: Mar 05, 2014 at 02:53 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `phirepawa_comment` (
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `phirepawa_comment`
@@ -148,17 +148,19 @@ CREATE TABLE IF NOT EXISTS `phirepawa_gallery` (
 CREATE TABLE IF NOT EXISTS `phirepawa_siteinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `about` text NOT NULL,
+  `context_type` varchar(10) NOT NULL,
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `phirepawa_siteinfo`
 --
 
-INSERT INTO `phirepawa_siteinfo` (`id`, `about`, `created_at`, `updated_at`) VALUES
-(1, 'Bootstrap can be used in at least two ways: with the compiled CSS or with the source Less files. To compile the Less files,  for how to setup your development environment to run the necessary commands.', '', '2014-02-22 21:49:13');
+INSERT INTO `phirepawa_siteinfo` (`id`, `about`, `context_type`, `created_at`, `updated_at`) VALUES
+(1, 'Bootstrap can be used in at least two ways: with the compiled CSS or with the source Less files. To compile the Less files,  for how to setup your development environment to run the necessary commands.', 'aboutus', '', '2014-03-04 16:43:35'),
+(2, 'It''s the static content for home that can e change by admin anytime , testing', 'home', '', '2014-03-04 11:29:27');
 
 -- --------------------------------------------------------
 
@@ -188,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `phirepawa_users` (
 INSERT INTO `phirepawa_users` (`id`, `email`, `firstname`, `lastname`, `regno`, `password`, `year`, `usertype`, `active`, `created_at`, `updated_at`) VALUES
 (1, 'chinmoym2004@gmail.com', 'chinmoy', 'Maity', 1234456789100, '$2y$10$w3WHXsl0NpZK3adJiROuxOsCaUny5puYSeHtPKl2usrbdVdufqGtG', 0, 'common', 1, '2014-02-01 18:36:08', '2014-02-16 03:46:24'),
 (2, 'admin@gmail.com', 'Admin', 'admin', 0, '$2y$10$t4xeYsLOULHXUvVplzVRK.enngZz5qhHSvTOUdnVnJdKzzH90IHE.', 0, 'super', 1, '2014-02-08 14:03:35', '2014-02-15 18:18:17'),
-(3, 'd.viji137@gmail.com', 'Viji', 'Maity', 123456, '$2y$10$uXk18EXX5AnYoMIW0.EoheSaPhbhqFlb1s4ZqzW7ZRClds79JqTzS', 0, 'common', 1, '2014-02-16 04:08:05', '2014-02-16 04:08:30'),
+(3, 'd.viji137@gmail.com', 'VIJI', 'Maity', 123456, '$2y$10$uXk18EXX5AnYoMIW0.EoheSaPhbhqFlb1s4ZqzW7ZRClds79JqTzS', 0, 'common', 1, '2014-02-16 04:08:05', '2014-02-27 16:17:18'),
 (4, 'chinmoy.m@desto.co.in', 'Viji', 'Maity', 123456778, '$2y$10$jjl1/KGmO79lNmKBN3FVIOlYkJQf4UMioGcrrLNg1W8EPhSP2eHJW', 2004, 'common', 1, '2014-02-18 17:30:32', '2014-02-18 12:00:32');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

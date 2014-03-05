@@ -21,7 +21,7 @@
   <div class="form-group">
     <label for="eventdate" class="col-sm-2 control-label">Select Date of Event</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="eventdate" name="eventdate" placeholder="Enter an image event date">
+      <input type="text" class="form-control" id="eventdate" name="eventdate" data-date-format="dd-mm-yyyy" placeholder="Enter an image event date">
     </div>
   </div>
   <div class="form-group">

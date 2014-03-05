@@ -150,15 +150,23 @@ class AdminController extends BaseController {
 	public function getSiteinfo(){
 
 		$update=Siteinfo::get();
-		$about;
-		$id;
 		foreach ($update as $key) {
-			$about=$key->about;
-			$id=$key->id;
+			if($key->context_type=='aboutus')
+			{
+				$about=$key->about;
+				$aboutid=$key->id;
+			}
+			else if($key->context_type=='home')
+			{
+				$home=$key->about;
+				$homeid=$key->id;
+			}
 		}
 		$data=array(
 			'about'=>$about,
-			'id'=>$id
+			'aboutid'=>$aboutid,
+			'home'=>$home,
+			'homeid'=>$homeid
 			);
 		$this->layout->content=View::make('admin.siteinfo',$data);	
 	}
@@ -171,6 +179,15 @@ class AdminController extends BaseController {
 		$update->save();
 		return Redirect::to('admin/siteinfo');
 	}
+
+	public function postHomecontent()
+	{
+		$update=Siteinfo::find(Input::get('homeid'));
+		$update->about=Input::get('saveHome');
+		$update->save();
+		return Redirect::to('admin/siteinfo');
+	}
+
 	public function getGallery()
 	{
 		//$getPhotos=Gallery::orderpaginate(2);

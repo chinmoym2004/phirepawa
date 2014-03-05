@@ -80,14 +80,17 @@ class BlogController extends BaseController {
 	}
 	public function getDisplay($id)
 	{
-		$chkBlog=Blog::where('uid','=',Auth::user()->id)->get();
-		if($chkBlog)
+		if(Auth::check())
 		{
-			$blog=DB::table('blog')
-			->join('users','users.id','=','blog.uid')
-			->select('*','blog.id as postid')
-			->where('blog.id','=',$id)
-			->get();
+			$chkBlog=Blog::where('uid','=',Auth::user()->id)->get();
+			if($chkBlog)
+			{
+				$blog=DB::table('blog')
+				->join('users','users.id','=','blog.uid')
+				->select('*','blog.id as postid')
+				->where('blog.id','=',$id)
+				->get();
+			}
 		}
 		else
 		{

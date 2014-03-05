@@ -12,7 +12,7 @@
 
 <div class="">
     <div class="col-sm-8 pull-left" id="showstatic">
-
+        {{$home}}
     </div>
     <div class="col-sm-4 pull-right" id="showEvennews">
 

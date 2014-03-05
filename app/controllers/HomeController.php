@@ -18,7 +18,14 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		$this->layout->content = View::make('index');
+		$update=Siteinfo::where('context_type','=','home')->get();
+		foreach ($update as $key) {
+			$home=$key->about;
+		}
+		$data=array(
+			'home'=>$home,
+			);
+		$this->layout->content = View::make('index',$data);
 	}
 
 	public function aboutus(){
