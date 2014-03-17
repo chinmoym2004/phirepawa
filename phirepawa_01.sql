@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 05, 2014 at 08:18 AM
--- Server version: 5.6.14
--- PHP Version: 5.5.6
+-- Host: 127.0.0.1
+-- Generation Time: Mar 17, 2014 at 06:04 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `phirepawa_01`
 --
+CREATE DATABASE IF NOT EXISTS `phirepawa_01` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `phirepawa_01`;
 
 -- --------------------------------------------------------
 
@@ -70,6 +72,23 @@ CREATE TABLE IF NOT EXISTS `phirepawa_comment` (
 
 INSERT INTO `phirepawa_comment` (`id`, `combody`, `doneby`, `context`, `contextid`, `verified`, `created_at`, `updated_at`) VALUES
 (1, 'ookoo okok okokokok okokokoko okokokokok kokok', 3, 'blog', 2, 1, '2014-02-26 17:45:21', '2014-02-26 13:23:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phirepawa_event`
+--
+
+CREATE TABLE IF NOT EXISTS `phirepawa_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_title` text NOT NULL,
+  `event_desc` text NOT NULL,
+  `event_date` varchar(20) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` varchar(20) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -135,14 +154,33 @@ CREATE TABLE IF NOT EXISTS `phirepawa_gallery` (
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `phirepawa_gallery`
 --
 
 INSERT INTO `phirepawa_gallery` (`id`, `fname`, `event_date`, `filetitle`, `description`, `uploadedBy`, `created_at`, `updated_at`) VALUES
-(2, 'galleryimage_5316bf7f4513c.jpg', '05-03-2014', 'wewee  wewee ', 'qddss fdfd', 2, '2014-03-05 06:09:03', '2014-03-05 00:39:03');
+(2, 'galleryimage_5316bf7f4513c.jpg', '05-03-2014', 'wewee  wewee ', 'qddss fdfd', 2, '2014-03-05 06:09:03', '2014-03-05 00:39:03'),
+(3, 'galleryimage_53175aa361fad.PNG', '05-03-2014', 'despicable me', 'vvvvviji', 2, '2014-03-05 17:10:59', '2014-03-05 11:40:59'),
+(4, 'galleryimage_531c4b544c4bc.jpg', '12-03-2014', 'nbznbncxb', 'xjnlnhglhnghjdh', 2, '2014-03-09 11:07:00', '2014-03-09 05:37:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phirepawa_news`
+--
+
+CREATE TABLE IF NOT EXISTS `phirepawa_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `news` text NOT NULL,
+  `newsdesc` text NOT NULL,
+  `news_date` varchar(20) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` varchar(20) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -180,23 +218,28 @@ CREATE TABLE IF NOT EXISTS `phirepawa_users` (
   `lastname` varchar(50) NOT NULL,
   `regno` bigint(20) NOT NULL,
   `password` text NOT NULL,
-  `year` int(11) NOT NULL,
+  `useryear` int(11) NOT NULL,
   `usertype` varchar(10) NOT NULL,
   `active` int(11) NOT NULL,
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `phirepawa_users`
 --
 
-INSERT INTO `phirepawa_users` (`id`, `email`, `firstname`, `lastname`, `regno`, `password`, `year`, `usertype`, `active`, `created_at`, `updated_at`) VALUES
+INSERT INTO `phirepawa_users` (`id`, `email`, `firstname`, `lastname`, `regno`, `password`, `useryear`, `usertype`, `active`, `created_at`, `updated_at`) VALUES
 (1, 'chinmoym2004@gmail.com', 'chinmoy', 'Maity', 1234456789100, '$2y$10$w3WHXsl0NpZK3adJiROuxOsCaUny5puYSeHtPKl2usrbdVdufqGtG', 0, 'common', 1, '2014-02-01 18:36:08', '2014-02-16 03:46:24'),
 (2, 'admin@gmail.com', 'Admin', 'admin', 0, '$2y$10$t4xeYsLOULHXUvVplzVRK.enngZz5qhHSvTOUdnVnJdKzzH90IHE.', 0, 'super', 1, '2014-02-08 14:03:35', '2014-02-15 18:18:17'),
 (3, 'd.viji137@gmail.com', 'VIJI', 'Maity', 123456, '$2y$10$uXk18EXX5AnYoMIW0.EoheSaPhbhqFlb1s4ZqzW7ZRClds79JqTzS', 0, 'common', 1, '2014-02-16 04:08:05', '2014-02-27 16:17:18'),
-(4, 'chinmoy.m@desto.co.in', 'Viji', 'Maity', 123456778, '$2y$10$jjl1/KGmO79lNmKBN3FVIOlYkJQf4UMioGcrrLNg1W8EPhSP2eHJW', 2004, 'common', 1, '2014-02-18 17:30:32', '2014-02-18 12:00:32');
+(4, 'chinmoy.m@desto.co.in', 'Viji', 'Maity', 123456778, '$2y$10$jjl1/KGmO79lNmKBN3FVIOlYkJQf4UMioGcrrLNg1W8EPhSP2eHJW', 2004, 'common', 1, '2014-02-18 17:30:32', '2014-02-18 12:00:32'),
+(5, 'uttam@gmail.com', 'uttam', 'ghorai', 12345667890123, '$2y$10$.ckgxEutcDoM.oZQpV3YwuJ46IFcN3oJWXSPgoSWJWKjlSqZRqWLG', 2012, 'common', 0, '2014-03-05 17:54:27', '2014-03-05 12:24:27'),
+(6, 'uttam123@gmail.com', 'uttam', 'ghorai', 12345678, '$2y$10$WYAL8iEn9UWcsflAR7.hLOFM8F5pdLlGJcNuQQRNkuD/PmmfiUv2m', 2014, 'common', 1, '2014-03-09 12:46:31', '2014-03-15 20:55:07'),
+(7, 'chinmoym2@gmail.com', 'chinmoy', 'DLJLJNL', 1654321765432, '$2y$10$bOc1Y/ACLff1LmX6ibiDBOCbwSfObzc9QN94rI9Pei2L/lmOUMrea', 2014, 'common', 1, '2014-03-09 13:15:29', '2014-03-09 09:47:24'),
+(8, 'chinmo123@desto.co.in', 'Chinmoy', 'Maity', 7654321765432, '$2y$10$SCN.b7tzg.EfcgxRfqd8Me6ok/kOtMnMAC0.a8AMEv3Vb.xu1oS4G', 2014, 'common', 1, '2014-03-09 13:17:31', '2014-03-09 09:45:44'),
+(9, 'chinmoym222@gmail.com', 'djhbbubo', 'kjbvkjvre', 0, '$2y$10$weczWtlHLr/F6lllkSOgxezQE29QW3uih0prclv39lhW6GZiDweUG', 0, 'common', 1, '2014-03-16 18:04:04', '2014-03-16 12:34:04');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

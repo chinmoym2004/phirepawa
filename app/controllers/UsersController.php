@@ -22,9 +22,11 @@ class UsersController extends BaseController {
 		   $user->firstname = Input::get('firstname');
 		   $user->lastname = Input::get('lastname');
 		   $user->email = Input::get('email');
+		   $user->regno =Input::get('regno');
+		   $user->useryear= Input::get('useryear');
 		   $user->password = Hash::make(Input::get('password'));//Input::get('password');
 		   $user->usertype = "common";//Input::get('useras');
-		   $user->active=1;
+		   $user->active=0;
 		   $user->save();
 		   return Redirect::to('users/login')->with('message', 'Thanks for registering!');
 	   } 
@@ -48,16 +50,27 @@ class UsersController extends BaseController {
 			$rememberme=true;
 		else
 			$rememberme=false;
-	
-		if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')),$rememberme)) {
-		   if(Auth::user()->usertype=='admin' || Auth::user()->usertype=='super'){
-		   		return Redirect::to('admin');
-		   }
-		   return Redirect::to('/');//->with('message', 'You are now logged in!');
-		} else {
-		   return Redirect::to('users/login')
-			  ->with('message', 'Your username/password combination was incorrect')
-			  ->withInput();
+
+		$chkActivation=User::where('email','=',Input::get('email'))
+			->where('active','=',1)->get();
+
+		if(count($chkActivation))
+		{
+			if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')),$rememberme)) {
+			   if(Auth::user()->usertype=='admin' || Auth::user()->usertype=='super'){
+			   		return Redirect::to('admin');
+			   }
+			   return Redirect::to('/');//->with('message', 'You are now logged in!');
+			} else {
+			   return Redirect::to('users/login')
+				  ->with('message', 'Your username/password combination was incorrect')
+				  ->withInput();
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login')
+				  ->with('message', 'account not actived');
 		}	  
 	}
 	
@@ -151,4 +164,5 @@ class UsersController extends BaseController {
 		$data=array("Upload image for this audio");
 		$this->layout->content = View::make('users.uploadimage',$data);
 	}
+
 }

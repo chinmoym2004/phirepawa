@@ -8,12 +8,7 @@
 
 	<!--CSS -->
 	<link href="{{URL::asset('assets_files/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-	<link  href="{{URL::asset('assets_files/css/main.css')}}" rel="stylesheet" type="text/css" />
-
-	<!--Js -->
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/jquery-1.10.1.min.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/bootstrap.min.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('assets_files/js/main.js')}}"></script>
+	
 </head>
 <body>
 	<div class="container headerclass">
@@ -146,10 +141,10 @@
 						        </li>
 			              	</ul>
 			            </li>
-
+			            <li><a href="{{url('admin/events')}}"><i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;Events</a></li>
+			            <li><a href="{{url('admin/news')}}"><i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;News</a></li>
 	  					<li><a href="{{url('admin/gallery')}}"><i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;Gallery</a></li>
 						<li><a href="{{url('admin/siteinfo')}}"><i class="glyphicon glyphicon-globe"></i>&nbsp;&nbsp;Siteinfo</a></li>
-						<li><a href="{{url('admin/setting')}}"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Setting</a></li>
 			          </ul>
 			        </div><!--/.nav-collapse -->
 	</div>

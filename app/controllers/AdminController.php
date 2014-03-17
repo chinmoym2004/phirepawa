@@ -16,11 +16,12 @@ class AdminController extends BaseController {
 
 			$noofcomments=Comments::where('verified','=',0)->get();
 
-
+			$noofuser=User::where('active','=',0)->count();
 			$data=array(
 				'noofpost' => $noofpost,
 				'nooffaq'=>$nooffaq ,
-				'noofcomments'=>$noofcomments
+				'noofcomments'=>$noofcomments,
+				'noofuser'=>$noofuser
 			);
 			$this->layout->content = View::make('admin.home',$data);
 		}
@@ -38,11 +39,13 @@ class AdminController extends BaseController {
 			$nooffaq=DB::table('faq')->join('users', 'users.id', '=', 'faq.uid')->select('*','faq.id as faqid','faq.created_at as postedon')->where('faq.verified','=',0)->get();
 
 			$noofcomments=Comments::where('verified','=',0)->get();
+			$noofuser=User::where('active','=',0)->count();
 
 			$data=array(
 				'noofpost' => $noofpost,
 				'nooffaq'=>$nooffaq ,
-				'noofcomments'=>$noofcomments
+				'noofcomments'=>$noofcomments,
+				'noofuser'=>$noofuser
 			);
 			$this->layout->content = View::make('admin.home',$data);
 		}
@@ -114,17 +117,15 @@ class AdminController extends BaseController {
 
 
 	public function postAdduser(){
-		$validator = Validator::make(Input::all(), User::$rules);
+		$validator = Validator::make(Input::all(), User::$rulesAdmin);
 		if ($validator->passes()) 
 		{
 			$saveuser=new User();
 			$saveuser->email=Input::get('email');
 			$saveuser->firstname=Input::get('firstname');
 			$saveuser->lastname=Input::get('lastname');
-			$saveuser->regno=Input::get('regno');
 			$saveuser->password=Hash::make(Input::get('password'));
 			$saveuser->usertype=Input::get('usertype');
-			$saveuser->year=Input::get('useryear');
 			$saveuser->active=1;
 			$saveuser->save();
 			return Redirect::to('admin/adduser')->with('message', '<strong>Success</strong>User added');
@@ -336,6 +337,95 @@ class AdminController extends BaseController {
 	{
 		$getComment=Comments::find($id);
 		$getComment->delete();
+	}
+	public function getAllnewuser()
+	{
+		if(Auth::user()){
+			if(Auth::user()->usertype=='admin' || Auth::user()->usertype=='super')
+			{
+				$noofuser=User::where('active','=',0)->get();
+				$data=array('noofuser'=>$noofuser);
+				$this->layout->content = View::make('admin.newuser',$data);	
+			}
+			else
+			{
+				return Redirect::to("/")->with('message','Un-Authorized Access');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login')->with('message','login to coninue');
+		}
+	}
+
+
+	
+	public function postUserverify($id)
+	{
+		if(Auth::user()){
+			if(Auth::user()->usertype=='admin' || Auth::user()->usertype=='super')
+			{
+				$updateuser=User::find($id);
+				$updateuser->active=1;
+				$updateuser->save();
+				return 1;
+			}
+			else
+			{
+				return Redirect::to("/")->with('message','Un-Authorized Access');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login')->with('message','login to coninue');
+		}
+	}
+
+	public function getAddnews()
+	{
+		$data=array(
+			'operation'=>'new'
+		);
+		$this->layout->content = View::make('admin.addnews',$data);	
+	}
+
+	public function postCreatenews()
+	{
+		$newnews=new News();
+		$newnews->news=Input::get('title');
+		$newnews->newsdesc=Input::get('body');
+		$newnews->news_date=Input::get('newsdate');
+		$newnews->created_by=Auth::user()->id;
+		$newnews->save();
+		$this->layout->content = View::make('admin.addnews')->with('message','Posted Successfully !');	
+	}
+
+	public function getAddevents()
+	{
+		$data=array(
+			'operation'=>'new'
+		);
+		$this->layout->content = View::make('admin.addevents',$data);	
+	}
+	public function getEvents()
+	{
+		
+		$this->layout->content = View::make('admin.events',$data);	
+	}
+	public function getNews()
+	{
+		
+		$this->layout->content = View::make('admin.addnews',$data);	
+	}
+	public function postCreateevent()
+	{
+		$event=new Events();
+		$event->event_title=Input::get('title');
+		$event->event_desc=Input::get('body');
+		$event->event_date=Input::get('eventsdate');
+		$event->created_by=Auth::user()->id;
+		$event->save();
+		$this->layout->content = View::make('admin.addevents')->with('message','Posted Successfully !');	
 	}
 
 	

@@ -1,6 +1,9 @@
 @if($auth)
 <div class="col-sm-8">
 	<form class="form-horizontal" role="form" method="post" action="{{url('admin/adduser')}}">
+	  @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
 	  <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">Email</label>
 	    <div class="col-sm-6">
@@ -53,7 +56,7 @@
 	  <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">Re-Password</label>
 	    <div class="col-sm-6">
-	      <input type="password" class="form-control" placeholder="re-Password"name="password_confirmation" autocomplete="off">
+	      <input type="password" class="form-control" placeholder="re-Password" name="password_confirmation" autocomplete="off">
 	    </div>
 	  </div>
 	  <div class="form-group">

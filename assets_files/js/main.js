@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	
 	$('#coin-slider').coinslider({ 
@@ -8,39 +7,6 @@ $(document).ready(function(){
 		});
 
 });
-
-/*$(document).on("click",".blog-edit",function(event){
-	event.preventDefault();
-	$('#input_content_title').val(($("#content_title").text()));
-	$('#blog_body').text(($("#content_body").text()));
-	$('#input_content_tags').val(($("#content_tags").text()));
-	
-	$("#old_body").hide();
-	$('#blogPostFrom').attr("data-operation","edit");
-	$('#blogPostFrom').show();
-});
-
-$(document).on("click",".blog-new",function(event){
-	//event.preventDefault();
-	editor=CKEDITOR.replace('blog_body');
-	$('#blogPostFrom')[0].reset();
-	$('#blogPostFrom').attr("data-id",0);
-	$("#old_body").hide();
-	$('#blogPostFrom').attr("data-operation","new");
-	$('#blogPostFrom').show();
-});*/
-/*
-$(document).on("click","#frm-save",function(event){
-	//event.preventDefault();
-	//console.log($("#input_content_title").val());
-	//console.log($("#blog_body").val());
-	//console.log($("#tags").val());
-	$.post(linkPath+"/blog/update/"+$('#blogPostFrom').attr("data-id"),{'title':$("#blog_title").val(),'body':CKEDITOR.instances['blog_body'].getData(),'tags':$("#tags").val()},function(){
-		//alert("ok");		
-	});
-	//$('#blogPostFrom').trigger('reset');
-	editor.destroy();
-});*/
 
 $(document).on("click","#from-clr",function(){
 	$('#blogPostFrom')[0].reset();
@@ -103,35 +69,15 @@ $("#userCreate").submit(function(event){
 	}
 	else
 	{
-		/*event.preventDefault();
-		$.ajax({
-		    url : linkPath+'/users/checkforemail',
-		    type: "POST",
-		    data : formData,
-		    success: function(data, textStatus, jqXHR)
-		    {
-		        //data - response from server
-		    },
-		    error: function (jqXHR, textStatus, errorThrown)
-		    {
-		 
-		    }
-		});
-		/*$.post(linkPath+'/users/checkforemail',{'email':$("#signupEmail").val()},function(data){
-		}).success(data);*/
-		//alertify.error("error");
-		//event.preventDefault();
+		
 	}		
 });
-/*$("#signupEmail").keypress(function(){
-	$("#doSignup").attr("disabled","false");
-});*/
 
 $(document).on("click",".ImPosting",function(){
 	if($(".myPostNote").val()){
 		$("#commentByUser").prepend("<div>"+$(".myPostNote").val()+"</div>");
 		$.post(linkPath+"/users/comments",{"postbody":$(".myPostNote").val(),"forPostId":$(".myPostNote").attr("data-id")});
-		//alertify.success("Thank you !");
+		alertify.success("Thank you !");
 	}
 	else{
 		alertify.error("Nothing to post");
@@ -180,4 +126,19 @@ $(document).on("click",'.commentdelete',function(event){
 
 $(document).on("focus","#eventdate",function(){
 	$(this).datepicker();
+});
+
+$(document).on("focus","#newsdate",function(){
+	$(this).datepicker();
+});
+$(document).on("focus","#eventsdate",function(){
+	$(this).datepicker();
+});
+
+$(document).on("click",'.userverify',function(event){
+	event.preventDefault();
+	$.post(globalpath+"/admin/userverify/"+$(this).attr('data-id'),function(){
+		alertify.error("success ! User verified");
+		window.location.reload();
+	});
 });

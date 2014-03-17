@@ -10,8 +10,8 @@
 	<link href="{{URL::asset('assets_files/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- 	<link href="{{URL::asset('assets_files/css/orbit-1.2.3.css')}}" rel="stylesheet" type="text/css" />
  -->	<link href="{{URL::asset('assets_files/css/alertify.css')}}" rel="stylesheet" type="text/css" />
-	<!-- <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-	<link href="{{URL::asset('assets_files/css/bootstrap-image-gallery.css')}}" rel="stylesheet" type="text/css" /> -->
+	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link href="{{URL::asset('assets_files/css/bootstrap-image-gallery.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -73,10 +73,10 @@
 			        </div>
 			        <div class="navbar-collapse collapse" id="navigation">
 			          <ul class="nav navbar-nav">
-				        <li class="active"><a href="{{url('/')}}">Home</a></li>
-				        <li><a href="{{url('aboutus')}}">About Us</a></li>				            
+				        <li class="active"><a href="{{url('/')}}"><i class="glyphicon glyphicon-home">&nbsp;</i>Home</a></li>
+				        <li><a href="{{url('aboutus')}}"><i class="glyphicon glyphicon-home">&nbsp;</i>About Us</a></li>				            
 				        <li class="dropdown">
-				        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Alumni Corner<b class="caret"></b></a>
+				        	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-home">&nbsp;</i>Alumni Corner<b class="caret"></b></a>
 				              <ul class="dropdown-menu">
 				                <li><a href="#">Action</a></li>
 				                <li><a href="#">Another action</a></li>
@@ -87,12 +87,12 @@
 				                <li><a href="#">One more separated link</a></li>
 				              </ul>
 				            </li>
-	  					<li><a href="{{url('gallery')}}">Gallery</a></li>
-						<li><a href="{{url('blog')}}">Blog</a></li>
-						<li><a href="{{url('faq')}}">FAQ</a></li>
-						<li><a href="{{url('news')}}">News</a></li>
-						<li><a href="{{url('forum')}}">Forum</a></li>
-						<li><a href="{{url('contactus')}}">Contact US</a></li> 
+	  					<li><a href="{{url('gallery')}}"><i class="glyphicon glyphicon-picture">&nbsp;</i>Gallery</a></li>
+						<li><a href="{{url('blog')}}"><i class="glyphicon glyphicon-book">&nbsp;</i>Blog</a></li>
+						<li><a href="{{url('faq')}}"><i class="glyphicon glyphicon-question-sign">&nbsp;</i>FAQ</a></li>
+						<li><a href="{{url('news')}}"><i class="glyphicon glyphicon-home">&nbsp;</i>News</a></li>
+						<li><a href="{{url('forum')}}"><i class="glyphicon glyphicon-home">&nbsp;</i>Forum</a></li>
+						<li><a href="{{url('contactus')}}"><i class="glyphicon glyphicon-link">&nbsp;</i>Contact US</a></li> 
 			          </ul>
 			        </div><!--/.nav-collapse -->
 	</div>

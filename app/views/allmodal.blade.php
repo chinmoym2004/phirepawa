@@ -54,39 +54,38 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+            <b>User registration</b>
             <div class="close" data-dismiss="modal" aria-hidden="true"></div>
             <span class="ecs_tooltip"><span class="arrow"></span></span>
-
       </div>
       <div class="modal-body">
-      <div class="col-sm-8">
-        <form class="form-horizontal" role="form" method="post" action="http://localhost/phirepawa/admin/adduser">
+           <form class="form-horizontal" role="form" method="post" action="{{url('users/create')}}">
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Email</label>
+            <label for="" class="col-sm-3 control-label">Email</label>
             <div class="col-sm-6">
               <input type="email" class="form-control" placeholder="Email" name="email">
             </div>
           </div>
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">First Name</label>
+            <label for="" class="col-sm-3 control-label">First Name</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" placeholder="First name" name="firstname">
             </div>
           </div>
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Last Name</label>
+            <label for="" class="col-sm-3 control-label">Last Name</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" placeholder="Last Name" name="lastname">
             </div>
           </div>
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Registration no</label>
+            <label for="" class="col-sm-3 control-label">Registration no</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" placeholder="Registartion no" name="regno" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Select Year</label>
+            <label for="" class="col-sm-3 control-label">Select Year</label>
             <div class="col-sm-3">
                 <select class="form-control" name="useryear">
                   <option value="2014">2014</option>
@@ -105,34 +104,33 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Password</label>
+            <label for="" class="col-sm-3 control-label">Password</label>
             <div class="col-sm-6">
               <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
-            <label for="" class="col-sm-2 control-label">Re-Password</label>
+            <label for="" class="col-sm-3 control-label">Re-Password</label>
             <div class="col-sm-6">
               <input type="password" class="form-control" placeholder="re-Password" name="password_confirmation" autocomplete="off">
             </div>
           </div>
-          <div class="form-group">
-              <label class="col-sm-2 control-label">User Type</label>
+          <!-- <div class="form-group">
+              <label class="col-sm-3 control-label">User Type</label>
               <div class="col-sm-4">
                 <select class="form-control" name="usertype">
                   <option value="common">Common</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
-          </div>
+          </div> -->
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
+            <div class="col-sm-offset-3 col-sm-4">
               <button type="submit" class="btn btn-default">Create User</button>
             </div>
           </div>
         </form>
-      </div>
-            <form method="POST" action="{{url('users/create')}}" accept-charset="UTF-8" class="form-signin" role="form" id="userCreate">
+        <!-- <form method="POST" action="{{url('users/create')}}" accept-charset="UTF-8" class="form-signin" role="form" id="userCreate">
              <h2 class="form-signin-heading">Signup</h2>
             {{ Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'First Name','required','value'=>'','id'=>'firstname')) }}<br/>
             {{ Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Last Name','required','value'=>'','id'=>'lastname')) }}<br/>
@@ -144,7 +142,7 @@
                   <div>{{ Form::submit('Signup', array('class'=>'btn btn-primary'))}}</div>
                 </div>
               </div>
-          {{ Form::close() }}
+          {{ Form::close() }} -->            
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

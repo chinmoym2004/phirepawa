@@ -21,7 +21,7 @@ class BlogController extends BaseController {
 		
 		$data=array(
 			'operation'=>'new'
-			);
+		);
 		$this->layout->content = View::make('blog.create',$data);
 	}
 	public function postCreate()
