@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 17, 2014 at 06:04 AM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Mar 21, 2014 at 02:18 PM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `phirepawa_01`
 --
-CREATE DATABASE IF NOT EXISTS `phirepawa_01` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `phirepawa_01`;
 
 -- --------------------------------------------------------
 
@@ -38,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `phirepawa_blog` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `phirepawa_blog`
@@ -46,7 +44,8 @@ CREATE TABLE IF NOT EXISTS `phirepawa_blog` (
 
 INSERT INTO `phirepawa_blog` (`id`, `title`, `body`, `tags`, `uid`, `verified`, `created_at`, `updated_at`) VALUES
 (2, 'title of my blog', 'kggbfjb hfbg jld;jkf;jdbg;djkf bjgbfdjkb', 'sample,test', 1, 1, '2014-02-02 09:07:34', '2014-02-02 14:39:27'),
-(3, 'title of my blog', 'kggbfjb hfbg jld;jkf;jdbg;djkf bjgbfdjkb', 'sample,test', 1, 1, '2014-02-02 09:08:05', '2014-02-23 12:14:09');
+(3, 'title of my blog', 'kggbfjb hfbg jld;jkf;jdbg;djkf bjgbfdjkb', 'sample,test', 1, 1, '2014-02-02 09:08:05', '2014-02-23 12:14:09'),
+(4, 'wtefrrggdgdgfgdfgfgdgdfg', 'dgdgdfgfgdffffffggffdg ffddsfgfdgdfgfdgdf g', 'sfgfgfdg,dfgdfgdgd g,fhfhgfhgf', 2, 1, '2014-03-21 07:08:42', '2014-03-21 07:08:55');
 
 -- --------------------------------------------------------
 
@@ -88,7 +87,16 @@ CREATE TABLE IF NOT EXISTS `phirepawa_event` (
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `phirepawa_event`
+--
+
+INSERT INTO `phirepawa_event` (`id`, `event_title`, `event_desc`, `event_date`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 'eqrferqf', 'qrfqffwe', '03/18/2014', 2, '2014-03-17 09:26:37', '2014-03-17 03:56:37'),
+(2, 'dfefwsef', 'wfefwff', '03/20/2014', 2, '2014-03-20 04:17:00', '2014-03-19 22:47:00'),
+(3, 'dfefwsef', 'wfefwff', '03/20/2014', 2, '2014-03-20 04:19:54', '2014-03-19 22:49:54');
 
 -- --------------------------------------------------------
 
@@ -105,14 +113,15 @@ CREATE TABLE IF NOT EXISTS `phirepawa_faq` (
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `phirepawa_faq`
 --
 
 INSERT INTO `phirepawa_faq` (`id`, `title`, `body`, `uid`, `verified`, `created_at`, `updated_at`) VALUES
-(1, 'q1', 'hfjk  jgjfg bfdbg gdf\r\n', 1, 0, '2014-02-07 17:59:46', '2014-02-07 12:29:46');
+(1, 'q1', 'hfjk  jgjfg bfdbg gdf\r\n', 1, 0, '2014-02-07 17:59:46', '2014-02-07 12:29:46'),
+(2, 'sgfxhfhgghg?', 'sfdbfcgc fhfh gj g', 2, 0, '2014-03-21 12:36:40', '2014-03-21 07:06:40');
 
 -- --------------------------------------------------------
 
@@ -122,21 +131,23 @@ INSERT INTO `phirepawa_faq` (`id`, `title`, `body`, `uid`, `verified`, `created_
 
 CREATE TABLE IF NOT EXISTS `phirepawa_forum` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `topics` varchar(50) NOT NULL,
-  `desc` text NOT NULL,
-  `created_by` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `body` text NOT NULL,
+  `uid` int(11) NOT NULL,
   `verified` int(11) NOT NULL,
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `phirepawa_forum`
 --
 
-INSERT INTO `phirepawa_forum` (`id`, `topics`, `desc`, `created_by`, `verified`, `created_at`, `updated_at`) VALUES
-(1, 'Enterprenureship', 'startup', 3, 0, '2014-02-21 18:50:37', '2014-02-21 13:20:37');
+INSERT INTO `phirepawa_forum` (`id`, `title`, `body`, `uid`, `verified`, `created_at`, `updated_at`) VALUES
+(1, 'Enterprenureship', 'startup', 3, 0, '2014-02-21 18:50:37', '2014-02-21 13:20:37'),
+(2, 'testing yfvbvbh', 'hdbclkjdbckj lskjfv kvjsldfkjb kjdflk jbdkfljb;', 2, 0, '2014-03-21 12:43:48', '2014-03-21 07:13:48'),
+(3, 'sdvsdffdvgd', 'fgdfgfdhggfh', 2, 0, '2014-03-21 12:44:17', '2014-03-21 07:14:17');
 
 -- --------------------------------------------------------
 
@@ -180,7 +191,17 @@ CREATE TABLE IF NOT EXISTS `phirepawa_news` (
   `created_at` varchar(20) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `phirepawa_news`
+--
+
+INSERT INTO `phirepawa_news` (`id`, `news`, `newsdesc`, `news_date`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 'dtyhyjjmnd d hty h', 'trrtshb rthh yht hthyy ty', '03/17/2014', 2, '2014-03-17 09:57:51', '2014-03-17 04:27:51'),
+(2, 'rsthgfdb fggfh gfhfh fghhfh ', 'jhvlk  kmgblkjf klnl;khng n', '', 2, '2014-03-21 12:27:00', '2014-03-21 06:57:00'),
+(3, 'kkjdlfdkbk kjbfgnb', 'kjjnkjnk knlk nlk lknlkn l;n lkn;nlkln', '03/21/2014', 2, '2014-03-21 12:27:35', '2014-03-21 06:57:35'),
+(4, 'ggdfgg df gdfg f gf gfgfdgfdgfd ggdd gg', 'fdfgffffffffff gffffffggggggg ggggggfdsg sgfgfgffdfg gsdg dfg', '03/21/2014', 2, '2014-03-21 12:27:53', '2014-03-21 06:57:53');
 
 -- --------------------------------------------------------
 
