@@ -5,19 +5,17 @@
             <tr>
               <th class="">Author</td>
               <th class="">Blog Title</td>
-              <th class="">Context</td>
               <th class="">Posted On</td>
               <th class="">Operation</td>
             </tr>
-            @foreach($noofcomments as $noofcomments)
+            @foreach($noofforum as $forum)
               <tr>
-                <td>{{$noofcomments->firstname.' '.$noofcomments->lastname}}</td>
-                <td>{{$noofcomments->combody}}</td>
-                <td>{{$noofcomments->context}}</td>
-                <td>{{$noofcomments->postedon}}</td>
+                <td>{{$forum->firstname.' '.$forum->lastname}}</td>
+                <td>{{$forum->title}}</td>
+                <td>{{$forum->postedon}}</td>
                 <td>
-                    <a href="#" data-id="{{$noofcomments->commentid}}" title="Delete This Post" class="operation commentdelete"><span class="glyphicon glyphicon-remove-circle"></span></a>
-                    <a href="#" data-id="{{$noofcomments->commentid}}" title="Mark as Verified" class="operation commentverify"><span class="glyphicon glyphicon-ok-circle"></span></a>
+                    <a href="{{url('admin/forumremove/'.$forum->forumid)}}" data-id="{{$forum->forumid}}" title="Delete This Post" class="operation"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                    <a href="{{url('admin/forumverify/'.$forum->forumid)}}" data-id="{{$forum->forumid}}" title="Mark as Verified" class="operation"><span class="glyphicon glyphicon-ok-circle"></span></a>
                 </td>
               </tr>
             @endforeach

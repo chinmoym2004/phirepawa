@@ -60,6 +60,11 @@ class HomeController extends BaseController {
 	}
 
 	public function gallery(){
+		$getuniqueyear=DB::table('gallery')
+		->select('*')
+		->groupBy('YEAR(event_date)')
+		->get();
+		print_r($getuniqueyear);exit;
 		$this->layout->content = View::make('gallery');
 	}
 

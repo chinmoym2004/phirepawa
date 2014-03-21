@@ -28,12 +28,15 @@ class AdminController extends BaseController {
 			);
 			$this->layout->content = View::make('admin.home',$data);
 		}
-	}
-	else{
-		$this->layout->content = View::make('users.login');
-	}
+		}
+		else
+		{
+			$this->layout->content = View::make('users.login');
+		}
 		
 	}
+
+
 	public function getDashboard()
 	{
 		if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super'){
@@ -75,6 +78,7 @@ class AdminController extends BaseController {
 		);
 		$this->layout->content = View::make('admin.newpost',$data);	
 	}
+
 	public function getAllnewlyfaq(){
 		$newfaq=DB::table('faq')
 		->join('users', 'users.id', '=', 'faq.uid')
@@ -98,111 +102,229 @@ class AdminController extends BaseController {
 	}
 
 	public function getAdduser(){
-		if(Auth::user()->usertype=='admin'){
-			$data=array(
-				'auth'=>0
-			);
-			$this->layout->content=View::make('admin.adduser',$data);
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'){
+				$data=array(
+					'auth'=>0
+				);
+				$this->layout->content=View::make('admin.adduser',$data);
+			}
+			else if(Auth::user()->usertype=='super'){
+				$data=array(
+					'auth' =>1
+				);
+				$this->layout->content=View::make('admin.adduser',$data);
+			}
+			else{
+				$data=array(
+					'auth'=>0
+				);
+				$this->layout->content=View::make('admin.adduser',$data);
+			}
 		}
-		else if(Auth::user()->usertype=='super'){
-			$data=array(
-				'auth' =>1
-			);
-			$this->layout->content=View::make('admin.adduser',$data);
-		}
-		else{
-			$data=array(
-				'auth'=>0
-			);
-			$this->layout->content=View::make('admin.adduser',$data);
+		else
+		{
+			return Redirect::to('users/login');
 		}
 	}
-
-
-
 
 	public function postAdduser(){
-		$validator = Validator::make(Input::all(), User::$rulesAdmin);
-		if ($validator->passes()) 
+		if(Auth::check())
 		{
-			$saveuser=new User();
-			$saveuser->email=Input::get('email');
-			$saveuser->firstname=Input::get('firstname');
-			$saveuser->lastname=Input::get('lastname');
-			$saveuser->password=Hash::make(Input::get('password'));
-			$saveuser->usertype=Input::get('usertype');
-			$saveuser->active=1;
-			$saveuser->save();
-			return Redirect::to('admin/adduser')->with('message', '<strong>Success</strong>User added');
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				$validator = Validator::make(Input::all(), User::$rulesAdmin);
+				if ($validator->passes()) 
+				{
+					$saveuser=new User();
+					$saveuser->email=Input::get('email');
+					$saveuser->firstname=Input::get('firstname');
+					$saveuser->lastname=Input::get('lastname');
+					$saveuser->password=Hash::make(Input::get('password'));
+					$saveuser->usertype=Input::get('usertype');
+					$saveuser->active=1;
+					$saveuser->save();
+					return Redirect::to('admin/adduser')->with('message', '<strong>Success</strong>User added');
+				}
+				else{
+					return Redirect::to('admin/adduser')->with('message', '<strong>Oh no!</strong>Change a few things up and try submitting again')->withErrors($validator)->withInput();
+				}
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
 		}
-		else{
-			return Redirect::to('admin/adduser')->with('message', '<strong>Oh no!</strong>Change a few things up and try submitting again')->withErrors($validator)->withInput();
+		else
+		{
+			return Redirect::to('users/login');
 		}
+
 	}
 
-
 	public function getUseradmin(){
-		$getuser=User::where('usertype','=','admin')->orWhere('usertype','=','super')->paginate(1);
-		$data=array('getuser' => $getuser);
-		$this->layout->content=View::make('admin.listadmin',$data);
+		if(Auth::check())
+		{
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				$getuser=User::where('usertype','=','admin')->orWhere('usertype','=','super')->paginate(1);
+				$data=array('getuser' => $getuser);
+				$this->layout->content=View::make('admin.listadmin',$data);
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 
 	public function getUsercommon(){
-		$getuser=User::where('usertype','=','common')->paginate(1);
-		$data=array('getuser' => $getuser);
-		$this->layout->content=View::make('admin.listcommon',$data);
+		if(Auth::check())
+		{
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				$getuser=User::where('usertype','=','common')->paginate(1);
+				$data=array('getuser' => $getuser);
+				$this->layout->content=View::make('admin.listcommon',$data);
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 
 	public function getSiteinfo(){
-
-		$update=Siteinfo::get();
-		foreach ($update as $key) {
-			if($key->context_type=='aboutus')
+		if(Auth::check())
+		{
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
 			{
-				$about=$key->about;
-				$aboutid=$key->id;
+				$update=Siteinfo::get();
+				foreach ($update as $key) 
+				{
+					if($key->context_type=='aboutus')
+					{
+						$about=$key->about;
+						$aboutid=$key->id;
+					}
+					else if($key->context_type=='home')
+					{
+						$home=$key->about;
+						$homeid=$key->id;
+					}
+				}
+				$data=array(
+					'about'=>$about,
+					'aboutid'=>$aboutid,
+					'home'=>$home,
+					'homeid'=>$homeid
+					);
+				$this->layout->content=View::make('admin.siteinfo',$data);	
 			}
-			else if($key->context_type=='home')
+			else
 			{
-				$home=$key->about;
-				$homeid=$key->id;
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
 			}
 		}
-		$data=array(
-			'about'=>$about,
-			'aboutid'=>$aboutid,
-			'home'=>$home,
-			'homeid'=>$homeid
-			);
-		$this->layout->content=View::make('admin.siteinfo',$data);	
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 
 
 	public function postAboutus()
 	{
-		$update=Siteinfo::find(Input::get('aboutid'));
-		$update->about=Input::get('saveAboutus');
-		$update->save();
-		return Redirect::to('admin/siteinfo');
+		if(Auth::check())
+		{
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				$update=Siteinfo::find(Input::get('aboutid'));
+				$update->about=Input::get('saveAboutus');
+				$update->save();
+				return Redirect::to('admin/siteinfo');
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 
 	public function postHomecontent()
 	{
-		$update=Siteinfo::find(Input::get('homeid'));
-		$update->about=Input::get('saveHome');
-		$update->save();
-		return Redirect::to('admin/siteinfo');
+		if(Auth::check())
+		{
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				$update=Siteinfo::find(Input::get('homeid'));
+				$update->about=Input::get('saveHome');
+				$update->save();
+				return Redirect::to('admin/siteinfo');
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 
 	public function getGallery()
 	{
-		//$getPhotos=Gallery::orderpaginate(2);
-		$this->layout->content=View::make('admin.gallery');
+		if(Auth::check())
+		{
+			
+			echo "ok";exit;
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				//$getPhotos=Gallery::orderpaginate(2);
+				$this->layout->content=View::make('admin.gallery');
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 	public function getUploadimage()
 	{
-		//$getPhotos=Gallery::orderpaginate(2);
-		$this->layout->content=View::make('admin.uploadimage');
+		if(Auth::check())
+		{
+			if(Auth::user()->type=='admin'||Auth::user()->type=='super')
+			{
+				//$getPhotos=Gallery::orderpaginate(2);
+				$this->layout->content=View::make('admin.uploadimage');
+			}
+			else
+			{
+				return Redirect::to('users/login')->with('message','Un-Authorized Access!');
+			}
+		}
+		else
+		{
+			return Redirect::to('users/login');
+		}
 	}
 	public function postUploadimage()
 	{
@@ -218,7 +340,7 @@ class AdminController extends BaseController {
 					$destinationPath = public_path().'/galleryimage/';	
 		        
 			        if (!file_exists($destinationPath)) {
-					    mkdir($destinationPath, 0777, true);
+					    mkdir($destinationPath,755);
 					}
 
 			        $ext = Input::file('image')->getClientOriginalExtension();//pathinfo($file[0], PATHINFO_EXTENSION);
@@ -228,6 +350,7 @@ class AdminController extends BaseController {
 				    $FileDB = new Gallery();
 				    $FileDB->fname = $filename;
 				    $FileDB->event_date =Input::get('eventdate');
+				    $FileDB->eyear = date('Y',strtotime(Input::get('eventdate')));
 				    $FileDB->filetitle = Input::get('title');
 				    $FileDB->description = Input::get('desc');
 				    //$FileDB->file_size = $getSize;
@@ -323,38 +446,92 @@ class AdminController extends BaseController {
 
 	public function getAllnewlycomment()
 	{
-		$noofcomments=DB::table('comment')
-		->join('users', 'users.id', '=', 'comment.doneby')
-		->select('*','comment.id as commentid','comment.updated_at as postedon')
-		->where('comment.verified','=',0)->get();
-		$data=array(
-			'noofcomments'=>$noofcomments
-		);
-		$this->layout->content = View::make('admin.newcomments',$data);	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$noofcomments=DB::table('comment')
+				->join('users', 'users.id', '=', 'comment.doneby')
+				->select('*','comment.id as commentid','comment.updated_at as postedon')
+				->where('comment.verified','=',0)->get();
+				$data=array(
+					'noofcomments'=>$noofcomments
+				);
+				$this->layout->content = View::make('admin.newcomments',$data);	
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else
+		{
+			return Redirect::to('/');
+		}
 	}
 
 	public function getAllnewlyforum()
 	{
-		$noofcomments=DB::table('comment')
-		->join('users', 'users.id', '=', 'comment.doneby')
-		->select('*','comment.id as commentid','comment.updated_at as postedon')
-		->where('comment.verified','=',0)->get();
-		$data=array(
-			'noofcomments'=>$noofcomments
-		);
-		$this->layout->content = View::make('admin.newcomments',$data);	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$noofforum=DB::table('forum')
+				->join('users', 'users.id', '=', 'forum.uid')
+				->select('*','forum.id as forumid','forum.updated_at as postedon')
+				->where('forum.verified','=',0)->get();
+				$data=array(
+					'noofforum'=>$noofforum
+				);
+				$this->layout->content = View::make('admin.newcomments',$data);
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else
+		{
+			return Redirect::to('/');
+		}	
 	}
 
 	public function postVerifycomment($id)
 	{
-		$getComment=Comments::find($id);
-		$getComment->verified=1;
-		$getComment->save();
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$getComment=Comments::find($id);
+				$getComment->verified=1;
+				$getComment->save();
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
 	}
 	public function postDeletecomment($id)
 	{
-		$getComment=Comments::find($id);
-		$getComment->delete();
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$getComment=Comments::find($id);
+				$getComment->delete();
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
 	}
 	public function getAllnewuser()
 	{
@@ -401,65 +578,161 @@ class AdminController extends BaseController {
 
 	public function getAddnews()
 	{
-		$data=array(
-			'operation'=>'new'
-		);
-		$this->layout->content = View::make('admin.addnews',$data);	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$data=array(
+					'operation'=>'new'
+				);
+				$this->layout->content = View::make('admin.addnews',$data);	
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function postCreatenews()
 	{
-		$newnews=new News();
-		$newnews->news=Input::get('title');
-		$newnews->newsdesc=Input::get('body');
-		$newnews->news_date=Input::get('newsdate');
-		$newnews->created_by=Auth::user()->id;
-		$newnews->save();
-		$data=array(
-			'operation'=>'new'
-		);
-		$this->layout->content = View::make('admin.addnews',$data)->with('message','Posted Successfully !');	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$newnews=new News();
+				$newnews->news=Input::get('title');
+				$newnews->newsdesc=Input::get('body');
+				$newnews->news_date=Input::get('newsdate');
+				$newnews->created_by=Auth::user()->id;
+				$newnews->save();
+				$data=array(
+					'operation'=>'new'
+				);
+				$this->layout->content = View::make('admin.addnews',$data)->with('message','Posted Successfully !');
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function getAddevents()
 	{
-		$data=array(
-			'operation'=>'new'
-		);
-		$this->layout->content = View::make('admin.addevents',$data);	
+		
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+					$data=array(
+				'operation'=>'new'
+				);
+				$this->layout->content = View::make('admin.addevents',$data);
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}	
 	}
 	public function getEvents()
 	{
 		
-		
-		$getallevents=Events::paginate(3);
-		$data=array(
-			'getallevents'=>$getallevents
-			);
-		$this->layout->content = View::make('admin.events',$data);	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$getallevents=Events::paginate(3);
+				$data=array(
+					'getallevents'=>$getallevents
+					);
+				$this->layout->content = View::make('admin.events',$data);	
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
 	}
 	public function getNews()
 	{
-		
-		$getallnews=News::paginate(3);
-		$data=array(
-			'getallnews'=>$getallnews
-			);
-		$this->layout->content = View::make('admin.news',$data);	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$getallnews=News::paginate(3);
+				$data=array(
+					'getallnews'=>$getallnews
+					);
+				$this->layout->content = View::make('admin.news',$data);
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}	
 	}
 	public function postCreateevent()
 	{
-		$event=new Events();
-		$event->event_title=Input::get('title');
-		$event->event_desc=Input::get('body');
-		$event->event_date=Input::get('eventsdate');
-		$event->created_by=Auth::user()->id;
-		$event->save();
-		$data=array(
-			'operation'=>'new'
-		);
-		$this->layout->content = View::make('admin.addevents',$data)->with('message','Posted Successfully !');	
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$event=new Events();
+				$event->event_title=Input::get('title');
+				$event->event_desc=Input::get('body');
+				$event->event_date=Input::get('eventsdate');
+				$event->created_by=Auth::user()->id;
+				$event->save();
+				$data=array(
+					'operation'=>'new'
+				);
+				$this->layout->content = View::make('admin.addevents',$data)->with('message','Posted Successfully !');	
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
 	}
 
-	
+	public function getForumverify($id)
+	{
+		if(Auth::check())
+		{
+			if(Auth::user()->usertype=='admin'||Auth::user()->usertype=='super')
+			{
+				$getf=Forum::find($id);
+				$getf->verified=1;
+				$getf->save();
+				return Redirect::to('admin/allnewlyforum')->with('message','Successfully verified');
+			}
+			else
+			{
+				return Redirect::to('/')->with('message',"Un-Authorized Access");
+			}
+		}
+		else{
+			return Redirect::to('/');
+		}
+	}
 }
