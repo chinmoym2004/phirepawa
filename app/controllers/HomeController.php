@@ -22,8 +22,10 @@ class HomeController extends BaseController {
 		foreach ($update as $key) {
 			$home=$key->about;
 		}
+		$getallevents=Events::orderBy('updated_at','DESC')->get();
 		$data=array(
 			'home'=>$home,
+			'getallevents'=>$getallevents
 			);
 		$this->layout->content = View::make('index',$data);
 	}

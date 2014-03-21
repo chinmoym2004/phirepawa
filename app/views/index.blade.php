@@ -14,12 +14,20 @@
     <div class="col-sm-8 pull-left" id="showstatic">
         {{$home}}
     </div>
-    <div class="col-sm-4 pull-right" id="showEvennews">
+    <div class="col-sm-4 pull-left" id="showEvennews">
         <div class="microsoft container1">
             <div class="marquee">
-            <p >Windows 8 and Windows RT are focused on your life—your friends and family, your apps, and your stuff. With new things like the <a href="http://windows.microsoft.com/en-US/windows-8/start-screen">Start screen</a>, <a href="http://windows.microsoft.com/en-US/windows-8/charms">charms</a>, and a <a href="http://windows.microsoft.com/en-US/windows-8/microsoft-account">Microsoft account</a>, you can spend less time searching and more time doing.</p>
-                <br/>
-                <p >ojdfjjsufbw[ufs jvssjv s cmcksbws.</p>
+                @foreach($getallevents as $key)
+                    <div>
+                        <div>
+                            <img src="{{URL::asset('assets_files/img/1386334827_calendar_alt_fill.png')}}" class="pull-left"/>
+                            {{$key->event_date}}
+                        </div>
+                        <div>
+                            {{$key->event_title}}
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

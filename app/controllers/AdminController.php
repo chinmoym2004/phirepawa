@@ -397,7 +397,10 @@ class AdminController extends BaseController {
 		$newnews->news_date=Input::get('newsdate');
 		$newnews->created_by=Auth::user()->id;
 		$newnews->save();
-		$this->layout->content = View::make('admin.addnews')->with('message','Posted Successfully !');	
+		$data=array(
+			'operation'=>'new'
+		);
+		$this->layout->content = View::make('admin.addnews',$data)->with('message','Posted Successfully !');	
 	}
 
 	public function getAddevents()
@@ -410,12 +413,21 @@ class AdminController extends BaseController {
 	public function getEvents()
 	{
 		
+		
+		$getallevents=Events::paginate(3);
+		$data=array(
+			'getallevents'=>$getallevents
+			);
 		$this->layout->content = View::make('admin.events',$data);	
 	}
 	public function getNews()
 	{
 		
-		$this->layout->content = View::make('admin.addnews',$data);	
+		$getallnews=News::paginate(3);
+		$data=array(
+			'getallnews'=>$getallnews
+			);
+		$this->layout->content = View::make('admin.news',$data);	
 	}
 	public function postCreateevent()
 	{
@@ -425,7 +437,10 @@ class AdminController extends BaseController {
 		$event->event_date=Input::get('eventsdate');
 		$event->created_by=Auth::user()->id;
 		$event->save();
-		$this->layout->content = View::make('admin.addevents')->with('message','Posted Successfully !');	
+		$data=array(
+			'operation'=>'new'
+		);
+		$this->layout->content = View::make('admin.addevents',$data)->with('message','Posted Successfully !');	
 	}
 
 	

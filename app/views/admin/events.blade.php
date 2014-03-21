@@ -8,19 +8,18 @@
               <th class="">Event Date</td>
               <th class="">Operation</td>
             </tr>
-            @foreach($getuser as $user)
+            @foreach($getallevents as $event)
               <tr>
-                <td>{{$user->firstname}}</td>
-                <td>{{$user->lastname}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->regno}}</td>
-                <td>{{$user->usertype}}</td>
+                <td>{{$event->event_title}}</td>
+                <td>{{$event->event_desc}}</td>
+                <td>Admin</td>
+                <td>{{$event->event_date}}</td>
                 <td>
-                  <a href="#" data-id="{{$user->faqid}}" title="Delete This Post" class="operation"><span class="glyphicon glyphicon-remove-circle"></span></a>
-                  <a href="#" data-id="{{$user->faqid}}" title="Mark as Verified" class="operation"><span class="glyphicon glyphicon-ok-circle"></span></a>
+                  <a href="#" data-id="{{$event->id}}" title="Delete This Post" class="operation"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                  <a href="#" data-id="{{$event->id}}" title="Mark as Verified" class="operation"><span class="glyphicon glyphicon-ok-circle"></span></a>
                 </td>
               </tr>
             @endforeach
           </table>
-          <?php echo $getuser->links(); ?>
+          <?php echo $getallevents->links(); ?>
         </div>
