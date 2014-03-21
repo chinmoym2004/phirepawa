@@ -16,7 +16,7 @@ Route::resource('aboutus','HomeController@aboutus');
 Route::resource('error','HomeController@error');
 Route::resource('contactus','HomeController@contactus');
 Route::resource('gallery','HomeController@gallery');
-
+Route::resource('news','HomeController@news');
 
 Route::controller('users','UsersController');
 Route::controller('blog','BlogController');
@@ -25,6 +25,7 @@ Route::controller('faq','FaqController');
 
 Route::resource('blog','BlogController@index');
 Route::resource('faq','FaqController@index');
+Route::resource('fullnews','HomeController@fullnews');
 
 Route::resource('forum','ForumController@index');
 

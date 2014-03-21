@@ -2,7 +2,7 @@
 	@foreach($forum as $content)
 	<div class="caption wrapper-lg">
 		<h2 class="post-title">
-			<a href="#">{{$content->topics}}</a>
+			<a href="#">{{$content->title}}</a>
 			@if($content->verified==1)
 			<!-- glyphicon glyphicon-share -->
 				<span class="" title="Verified" style="font-size:14px"><i class="glyphicon glyphicon-ok-circle"></i></span>
@@ -11,7 +11,7 @@
             @endif
 		</h2>
 		<div class="post-sum">
-		  <p>{{$content->desc}}</p>
+		  <p>{{$content->body}}</p>
 		</div>
 		<div class="line line-lg"></div>
 		<div class="text-muted">

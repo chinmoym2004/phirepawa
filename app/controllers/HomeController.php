@@ -63,4 +63,32 @@ class HomeController extends BaseController {
 		$this->layout->content = View::make('gallery');
 	}
 
+	public function news()
+	{
+		$getallnews=News::paginate(3);
+		$data=array(
+			'getallnews'=>$getallnews
+		);
+		$this->layout->content = View::make('news',$data);
+	}
+
+
+	public function fullnews()
+	{
+		
+		$getnews=News::find(base64_decode($_REQUEST['forwhich']));
+		if(count($getnews))
+		{
+			$data=array(
+				'getnews'=>$getnews
+			);
+			$this->layout->content = View::make('displaynews',$data);
+		}
+		else
+		{
+			return Redirect::to('/')->with('message','Invalid Request !');
+		}
+	}
+	
+
 }

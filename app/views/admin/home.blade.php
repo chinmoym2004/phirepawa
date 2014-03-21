@@ -18,7 +18,7 @@
         </div>
         <div class="col-xs-6 col-md-3">
           <a href="{{url('admin/allnewlyforum')}}" class="thumbnail" style="height: 101px;">
-              New Forum<span class="badge pull-right">14</span>  
+              New Forum<span class="badge pull-right">{{count($noofforumtopics)}}</span>  
           </a>
         </div>
         <div class="col-xs-6 col-md-3">

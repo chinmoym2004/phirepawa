@@ -31,7 +31,6 @@ class FaqController extends BaseController {
 		$faq=new Faq();
 		$faq->title= Input::get('title');
 		$faq->body= Input::get('body');
-		$faq->tags= Input::get('tags');
 		$faq->uid= $uid;
 		$faq->verified= 0;
 		$faq->save();

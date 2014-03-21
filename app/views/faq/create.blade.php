@@ -4,11 +4,11 @@
 		<h5>Ask a Question</h5>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Question Title</label>
-	    <input type="text" class="form-control" id="" placeholder="Enter a title" name="faq_title">
+	    <input type="text" class="form-control" id="" placeholder="Enter a title" name="title">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputPassword1">Desription</label>
-	    <textarea class="form-control" rows="10" name="faq_desc"></textarea>
+	    <textarea class="form-control" rows="10" name="body"></textarea>
 	  </div>
 	  <!-- <div class="form-group">
 	    <label for="exampleInputFile">File input</label>
@@ -32,11 +32,11 @@
 		<h5>Ask a Question</h5>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Question Title</label>
-	    <input type="text" class="form-control" id="" placeholder="Enter a title" name="faq_title" value="{{$content->title}}">
+	    <input type="text" class="form-control" id="" placeholder="Enter a title" name="title" value="{{$content->title}}">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputPassword1">Desription</label>
-	    <textarea class="form-control" rows="10" name="faq_desc">{{$content->body}}</textarea>
+	    <textarea class="form-control" rows="10" name="body">{{$content->body}}</textarea>
 	  </div>
 	 @endforeach
 	  <button type="submit" class="btn btn-default">Update Question</button>

@@ -32,7 +32,6 @@ class ForumController extends BaseController {
 		$forum=new Forum();
 		$forum->title= Input::get('title');
 		$forum->body= Input::get('body');
-		$forum->tags= Input::get('tags');
 		$forum->uid= $uid;
 		$forum->verified= 0;
 		$forum->save();
